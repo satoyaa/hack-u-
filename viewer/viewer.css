@@ -1,0 +1,30 @@
+/* viewer.css */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #525659; /* ChromeのPDFビューアに近い背景色 */
+}
+#pdf-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto; /* PDFが画面より大きい場合にスクロール */
+    padding-top: 20px; /* 上部に少し余白 */
+    box-sizing: border-box;
+}
+#viewer-content {
+    position: relative; /* canvasとtext-layerの重ね合わせの基準 */
+    margin-bottom: 20px; /* 下部の余白 */
+}
+#pdf-canvas {
+    display: block; /* 不要な下余白を防ぐ */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+#text-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

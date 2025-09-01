@@ -1,24 +1,28 @@
 {
   "manifest_version": 3,
-  "name": "PDF Inverter",
-  "version": "1.0",
-  "description": "Opens PDF files in a viewer with an invert function.",
+  "name": "PDF Modifier Step 2",
+  "version": "1.1",
+  "description": "表示されたPDFを検知し、内容を変更します。",
+  "background": {
+    "service_worker": "background.js"
+  },
   "permissions": [
-    "webRequest",
-    "storage"
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "web_accessible_resources": [
     {
-      "resources": [
-        "web/viewer.html"
-      ],
-      "matches": ["<all_urls>"]
+      "resources": [ "lib/pdf-lib.js" ],
+      "matches": [ "<all_urls>" ]
     }
   ]
 }
