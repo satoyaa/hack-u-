@@ -1,28 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "PDF Modifier Step 2",
-  "version": "1.1",
-  "description": "表示されたPDFを検知し、内容を変更します。",
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": [
-    "scripting"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "name": "PDF Hider Step 1",
+  "version": "1.0",
+  "description": "表示されたPDFを検知して非表示にします。",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_idle"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [ "lib/pdf-lib.js" ],
-      "matches": [ "<all_urls>" ]
     }
   ]
 }
