@@ -1,32 +1,25 @@
-// background.js (最終デバッグ版)
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: "openWithInvert",
+    title: "Open PDF with Invert Viewer",
+    contexts: ["link", "page"]
+  });
+});
 
-console.log('バックグラウンドスクリプトが起動しました。PDFへのアクセスを監視します。');
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  let url = info.linkUrl || tab.url;
+  if (!url) return;
+  // PDFっぽいURLだけ（拡張子やcontent-typeチェックは簡易）
+  if (!url.match(/\.pdf(\?|$)/i)) {
+    // それでも開きたい？その場合は無条件で開くようにする
+  }
+  const viewerUrl = chrome.runtime.getURL("viewer.html") + "?file=" + encodeURIComponent(url);
+  chrome.tabs.create({ url: viewerUrl });
+});
 
-chrome.webRequest.onHeadersReceived.addListener(
-  (details) => {
-    console.log(`[検知] URL: ${details.url}, Type: ${details.type}`);
-
-    const contentTypeHeader = details.responseHeaders.find(
-      (header) => header.name.toLowerCase() === 'content-type'
-    );
-
-    if (contentTypeHeader) {
-      console.log(`[検知] Content-Type: ${contentTypeHeader.value}`);
-    }
-
-    if (contentTypeHeader && contentTypeHeader.value.toLowerCase().includes('application/pdf')) {
-      console.log('★★★ PDFを検知しました！リダイレクトを実行します ★★★');
-      
-      const viewerUrl = chrome.runtime.getURL(
-        `viewer/viewer.html?file=${encodeURIComponent(details.url)}`
-      );
-
-      chrome.tabs.update(details.tabId, { url: viewerUrl });
-    }
-  },
-  {
-    urls: ['<all_urls>'],
-    types: ['main_frame', 'sub_frame'],
-  },
-  ['responseHeaders']
-);
+// ツールバーボタンでも開ける
+chrome.action.onClicked.addListener((tab) => {
+  const url = tab.url;
+  const viewerUrl = chrome.runtime.getURL("viewer.html") + "?file=" + encodeURIComponent(url);
+  chrome.tabs.create({ url: viewerUrl });
+});
