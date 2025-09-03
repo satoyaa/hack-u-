@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+<<<<<<< HEAD
   "name": "PDF Hider Step 1",
   "version": "1.0",
   "description": "表示されたPDFを検知して非表示にします。",
@@ -11,3 +12,20 @@
     }
   ]
 }
+=======
+  "name": "Invert PDF Viewer",
+  "version": "0.1",
+  "description": "PDFの背景を黒、黒文字を白にして表示（画像保持）",
+  "permissions": ["contextMenus", "activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open PDF with Invert Viewer"
+  },
+  "icons": {
+    "48": "icon48.png"
+  }
+}
+>>>>>>> d0db08341c3e20bf6e7cec281bc116b776cd8ee0

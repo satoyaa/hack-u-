@@ -36,7 +36,7 @@ if (existingEmbed) {
   hidePdfViewer(existingEmbed);
 } else {
   // 2. もし見つからなければ、これから追加される可能性に備えて監視を開始する
-  const observer = new MutationObserver((mutationsList) => {
+  const observer = new Mutationobserver((mutationsList) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList') {
         for (const node of mutation.addedNodes) {
